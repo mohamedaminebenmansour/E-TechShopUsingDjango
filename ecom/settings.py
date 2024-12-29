@@ -18,9 +18,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-zuv=k@sr!sohaso=#z++2083(mdz&_9_5282a)l*9l87yk*$&c'
 
-STRIPE_SECRET_KEY = "sk_test_51Ovj1kHMaLFgg1XNC8R80dAVvjaameuOg0zpMih1Xnd7jB4IoTyAwPc2p8v63nBEe0AmQRU5Tvp8Wzmw2SBLrNQ6009wB5KaoF"
+STRIPE_PUBLIC_KEY = "pk_test_51P3VG3EIAjF2DWAzDJdfxMSpRobcs4E79puN5KqnR2Cm0cPQGCIIjNQZn8DAcY2bYlbNgkAb52gFAw4ZROd9MsYh00EPv3pI3Q"
 
-STRIPE_PUBLIC_KEY = "pk_test_51Ovj1kHMaLFgg1XNRB1Dq4uVviq4ZkJbd460w75eSyAo13efBdBJPRgOpPX3J7C8vm2u17ir3xGeq2FQphguc0R800AqslFwHv"
+STRIPE_SECRET_KEY = "sk_test_51P3VG3EIAjF2DWAzkrOuZBT7SYIje8VhFyiUSwtCDWLhFfgrRSwhNcgi8Dhy2n7hDAx8qIG1sPRfSTQmDUeljAxC009lq2PU4Z"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -124,8 +124,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'rzxgraphics@gmail.com'
-EMAIL_HOST_PASSWORD = "cxtp bght dzye zomd"
+EMAIL_HOST_USER = 'mohamedpoly9@gmail.com'
+EMAIL_HOST_PASSWORD = "qhng eqvq cchg vjcj"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

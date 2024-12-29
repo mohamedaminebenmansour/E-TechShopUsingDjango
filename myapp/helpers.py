@@ -29,7 +29,7 @@ class Manager(BaseUserManager):
 
 def send_email(email, token):
     subject = "Passowrd Rest"
-    message = f"Hi, here is your link of forget password recovery http://127.0.0.1:8082/change_password/{token}"
+    message = f"Hi, here is your link of forget password recovery http://127.0.0.1:8000/change_password/{token}"
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message, email_from, recipient_list)

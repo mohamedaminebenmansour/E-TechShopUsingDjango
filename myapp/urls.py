@@ -7,7 +7,7 @@ urlpatterns = [
     path('search_results', views.search_results, name='search_results'),
     
     # add to cart
-    path('checkout_cart/<str:slug>', views.checkout_cart, name='checkout_cart'),
+    path('checkout_cart/<slug:product_slug>/', views.checkout_cart, name='checkout_cart'),
     path('remove_cart/<str:slug>', views.remove_cart, name='remove_cart'),
     path('add_to_cart', views.add_to_cart, name='add_to_cart'),
     path('get_cart_data', views.get_cart_data, name='get_cart_data'),

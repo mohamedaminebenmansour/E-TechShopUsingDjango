@@ -105,20 +105,19 @@ def about_us(request):
 
 @login_required(login_url='login')
 # add to cart
-def checkout_cart(request, slug):
-    product = Product.objects.values_list('slug', flat=True).get(slug=slug)
-       
+def checkout_cart(request, product_slug):
     user = request.user
+    product = get_object_or_404(Product, slug=product_slug)
     cart_items, created = Cart.objects.get_or_create(user=user, product=product, is_ordered=False)
     
     if created:
-        messages.success(request, f"Your {product.product_name} has been added to cart!!")
+        messages.success(request, f"{product.product_name} has been added to cart!")
     else:
         cart_items.quantity += 1
         cart_items.save()
-        messages.success(request, f"Another {product.product_name} has been added to cart!!")
-        
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        messages.success(request, f"Another {product.product_name} has been added to cart!")
+    
+    return redirect('add_to_cart')
 
 def calculate_cart_item_total(cart_item):
 
@@ -269,8 +268,8 @@ def checkout_payment(request):
             payment_method_types=['card'],
             line_items=line_items,  # Provide the line items data here
             mode='payment',
-            success_url='http://127.0.0.1:8082/checkout_complete',
-            cancel_url='http://127.0.0.1:8082/payment-failed',
+            success_url='http://127.0.0.1:8000/checkout_complete',
+            cancel_url='http://127.0.0.1:8000/payment-failed',
         )
 
         # Check if the session was created successfully

@@ -61,7 +61,7 @@ class Product(models.Model):
     is_stock = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     is_trending = models.BooleanField(default=False)
-    slug = models.SlugField(blank=True, null=True, unique=True)
+    slug = models.SlugField(unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def discounted_price(self):
@@ -75,7 +75,8 @@ class Product(models.Model):
         return "{:.2f}".format(self.orignal_price)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.product_name)
+        if not self.slug:
+            self.slug = slugify(self.product_name)
         super(Product, self).save(*args, **kwargs)
 
     def __str__(self):
