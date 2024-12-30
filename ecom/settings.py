@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'myapp',
     'django.contrib.humanize',
     'social_django',
+    "allauth.socialaccount.providers.github",
 ]
 
 MIDDLEWARE = [

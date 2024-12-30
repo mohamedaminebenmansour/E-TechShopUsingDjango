@@ -1,160 +1,204 @@
-{% extends 'index.html' %}
-
-{% block content %}
-{% load static %} 
-{% load humanize %}
+{% extends 'index.html' %} {% block content %} {% load static %} {% load
+humanize %}
 <!-- BEGIN #checkout-cart -->
 <div class="section-container" id="checkout-cart">
-    <!-- BEGIN container -->
-    <div class="container">
-        <!-- BEGIN checkout -->
-        <div class="checkout">
-           <form action="{% url 'add_to_cart' %}" method="post" id="cart-form">
-                {% csrf_token %}
-                <div class="checkout-header">
-                    <!-- BEGIN row -->
-                    <div class="row">
-                        <!-- BEGIN col-3 -->
-                        <div class="col-md-3 col-sm-3">
-                            <div class="step active">
-                                <a href="#">
-                                    <div class="number">1</div>
-                                    <div class="info">
-                                        <div class="title">Free Delivery</div>
-                                        <div class="desc">Enjoy free delivery across Pakistan. No minimum purchase required</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- END col-3 -->
-                        <!-- BEGIN col-3 -->
-                        <div class="col-md-3 col-sm-3">
-                            <div class="step">
-                                <a href="{% url 'checkout_info' %}">
-                                    <div class="number">2</div>
-                                    <div class="info">
-                                        <div class="title">Shipping Address</div>
-                                        <div class="desc">Provide your shipping address so we can deliver your order securely.</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- END col-3 -->
-                        <!-- BEGIN col-3 -->
-                        <div class="col-md-3 col-sm-3">
-                            <div class="step">
-                                <a href="{% url 'checkout_payment' %}">
-                                    <div class="number">3</div>
-                                    <div class="info">
-                                        <div class="title">Payment</div>
-                                        <div class="desc">Choose your preferred payment method to complete your order</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- END col-3 -->
-                        <!-- BEGIN col-3 -->
-                        <div class="col-md-3 col-sm-3">
-                            <div class="step">
-                                <a href="{% url 'checkout_complete' %}">
-                                    <div class="number">4</div>
-                                    <div class="info">
-                                        <div class="title">Complete Payment</div>
-                                        <div class="desc">Review your order details and complete the payment process.</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- END col-3 -->
+  <!-- BEGIN container -->
+  <div class="container">
+    <!-- BEGIN checkout -->
+    <div class="checkout">
+      <form action="{% url 'add_to_cart' %}" method="post" id="cart-form">
+        {% csrf_token %}
+        <div class="checkout-header">
+          <!-- BEGIN row -->
+          <div class="row">
+            <!-- BEGIN col-3 -->
+            <div class="col-md-3 col-sm-3">
+              <div class="step active">
+                <a href="#">
+                  <div class="number">1</div>
+                  <div class="info">
+                    <div class="title">Free Delivery</div>
+                    <div class="desc">
+                      Enjoy free delivery across Pakistan. No minimum purchase
+                      required
                     </div>
-                    <!-- END row -->
-                </div>
-                <!-- END checkout-header -->
+                  </div>
+                </a>
+              </div>
+            </div>
+            <!-- END col-3 -->
+            <!-- BEGIN col-3 -->
+            <div class="col-md-3 col-sm-3">
+              <div class="step">
+                <a href="{% url 'checkout_info' %}">
+                  <div class="number">2</div>
+                  <div class="info">
+                    <div class="title">Shipping Address</div>
+                    <div class="desc">
+                      Provide your shipping address so we can deliver your order
+                      securely.
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <!-- END col-3 -->
+            <!-- BEGIN col-3 -->
+            <div class="col-md-3 col-sm-3">
+              <div class="step">
+                <a href="{% url 'checkout_payment' %}">
+                  <div class="number">3</div>
+                  <div class="info">
+                    <div class="title">Payment</div>
+                    <div class="desc">
+                      Choose your preferred payment method to complete your
+                      order
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <!-- END col-3 -->
+            <!-- BEGIN col-3 -->
+            <div class="col-md-3 col-sm-3">
+              <div class="step">
+                <a href="{% url 'checkout_complete' %}">
+                  <div class="number">4</div>
+                  <div class="info">
+                    <div class="title">Complete Payment</div>
+                    <div class="desc">
+                      Review your order details and complete the payment
+                      process.
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <!-- END col-3 -->
+          </div>
+          <!-- END row -->
+        </div>
+        <!-- END checkout-header -->
 
+        <!-- BEGIN checkout-body -->
+        <div class="checkout-body">
+          <div class="table-responsive">
+            <table class="table table-cart">
+              <thead>
+                <tr>
+                  <th>Product Name</th>
+                  <th class="text-center">Original Price</th>
+                  <th class="text-center">Quantity</th>
+                  <th class="text-center">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for cart_item in cart_items %}
+                <tr>
+                  <td class="cart-product">
+                    <div class="product-details">
+                      <img
+                        src="{{ cart_item.product.product_image.url }}"
+                        alt="{{ cart_item.product.product_name }}"
+                        class="product-img"
+                      />
+                      <div class="product-info">
+                        <div class="product-name">
+                          {{ cart_item.product.product_name }}
+                        </div>
+                        <div class="delivery-date">
+                          Expected delivery date -
+                          <b>{{ delivery_date|date:"F j, Y" }}</b>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
 
-                <!-- BEGIN checkout-body -->
-                <div class="checkout-body">
-                    <div class="table-responsive">
-                        <table class="table table-cart">
-                            <thead>
-                                <tr>
-                                    <th>Product Name</th>
-                                    <th class="text-center">Original Price</th>
-                                    <th class="text-center">Quantity</th>
-                                    <th class="text-center">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for cart_item in cart_items %}
-                                <tr>
-                                    <td class="cart-product">
-                                        <div class="product-details">
-                                            <img src="{{ cart_item.product.product_image.url }}" alt="{{ cart_item.product.product_name }}" class="product-img">
-                                            <div class="product-info">
-                                                <div class="product-name">{{ cart_item.product.product_name }}</div>
-                                                <div class="delivery-date">Expected delivery date - <b>{{ delivery_date|date:"F j, Y" }}</b></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                
-                                    <td class="cart-price">
-                                        <div class="price-tag">{{ cart_item.product.orignal_price|intcomma }} - each</div>
-                                    </td>
-                                
-                                    <td class="cart-qty">
-                                        <form method="post" action="{% url 'add_to_cart' %}">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="cart_item_id" value="{{ cart_item.id }}">
+                  <td class="cart-price">
+                    <div class="price-tag">
+                      {{ cart_item.product.orignal_price }} - each
+                    </div>
+                  </td>
 
-                                            <div class="quantity-control">
-                                                <button type="submit" name="action" value="decrease" class="quantity-btn">-</button>
+                  <td class="cart-qty">
+                    <form method="post" action="{% url 'add_to_cart' %}">
+                      {% csrf_token %}
+                      <input
+                        type="hidden"
+                        name="cart_item_id"
+                        value="{{ cart_item.id }}"
+                      />
 
-                                                <span class="quantity">{{ cart_item.quantity }}</span>
+                      <div class="quantity-control">
+                        <button
+                          type="submit"
+                          name="action"
+                          value="decrease"
+                          class="quantity-btn"
+                        >
+                          -
+                        </button>
 
-                                                <button type="submit" name="action" value="increase" class="quantity-btn">+</button>
-                                            </div>
+                        <span class="quantity">{{ cart_item.quantity }}</span>
 
-                                        </form>
-                                    </td>
+                        <button
+                          type="submit"
+                          name="action"
+                          value="increase"
+                          class="quantity-btn"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </form>
+                  </td>
 
-                                    <td class="cart-total"><strong>{{ cart_item.total_price|intcomma }}</strong></td>
-                                </tr>
-                                {% endfor %}
-                                
-
-                                
+                  <td class="cart-total">
+                    <strong>{{ cart_item.total_price }}</strong>
+                  </td>
+                </tr>
+                {% endfor %}
 
                 <tr>
-                    
-                    <td class="cart-summary" colspan="4">
-                        <div class="summary-container">
-                            <div class="summary-row">
-                                <div class="field">Cart Subtotal</div>
-                                <div class="value" id="subtotal">Rs. {{ subtotal|floatformat:"2"|intcomma }}</div>
-                            </div>
-                            <div class="summary-row text-danger">
-                                <div class="field">Free Shipping</div>
-                                <div class="value">Rs.0.00</div>
-                            </div>
-                            <div class="summary-row total">
-                                <div class="field">Total</div>
-                                <div class="value" id="total">Rs. {{ total|floatformat:"2"|intcomma }} </div>
-                            </div>
+                  <td class="cart-summary" colspan="4">
+                    <div class="summary-container">
+                      <div class="summary-row">
+                        <div class="field">Cart Subtotal</div>
+                        <div class="value" id="subtotal">
+                          $ {{ subtotal|floatformat:"2" }}
                         </div>
-                    </td>
-
+                      </div>
+                      <div class="summary-row text-danger">
+                        <div class="field">Free Shipping</div>
+                        <div class="value">$0.00</div>
+                      </div>
+                      <div class="summary-row total">
+                        <div class="field">Total</div>
+                        <div class="value" id="total">
+                          $ {{ total|floatformat:"2" }}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
                 </tr>
-            </tbody>
-        </table>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </form>
+
+      <div class="checkout-footer">
+        <a href="{% url 'product' %}" class="btn btn-white btn-lg pull-left"
+          >Continue Shopping</a
+        >
+        <a
+          href="{% url 'checkout_info' %}"
+          class="btn btn-inverse btn-lg p-l-30 p-r-30 m-l-10"
+          >Checkout</a
+        >
+      </div>
+
+      {% endblock %}
     </div>
+  </div>
 </div>
-</form>
-
-<div class="checkout-footer">
-    <a href="{% url 'product' %}" class="btn btn-white btn-lg pull-left">Continue Shopping</a>
-    <a href="{% url 'checkout_info' %}" class="btn btn-inverse btn-lg p-l-30 p-r-30 m-l-10">Checkout</a>
-</div>
-
-               
-
-{% endblock %}

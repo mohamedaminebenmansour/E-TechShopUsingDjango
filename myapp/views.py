@@ -254,7 +254,7 @@ def checkout_payment(request):
         for item in cart_items:
             line_items.append({
                 'price_data': {
-                    'currency': 'pkr',
+                    'currency': 'usd',
                     'unit_amount': int(float(item.product.discounted_price()) * 100),
                     'product_data': {
                         'name': item.product.product_name,  # Name of the product
