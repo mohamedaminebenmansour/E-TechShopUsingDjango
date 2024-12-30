@@ -101,10 +101,10 @@
 
           <div class="product-purchase-container">
             <div class="product-discount">
-              <span class="discount">Rs. {{product.orignal_price}}</span>
+              <span class="discount">$ {{product.orignal_price}}</span>
             </div>
             <div class="product-price">
-              <div class="price">Rs. {{product.discounted_price}}</div>
+              <div class="price">$ {{product.discounted_price}}</div>
             </div>
             {% include "alert.html" %}
             
@@ -329,8 +329,8 @@
             </h4>
 
             <p class="item-desc">{{p.product_description}}.</p>
-            <div class="item-price">Rs. {{p.discounted_price}}</div>
-            <div class="item-discount-price">Rs. {{p.orignal_price}}</div>
+            <div class="item-price">$ {{p.discounted_price}}</div>
+            <div class="item-discount-price">$ {{p.orignal_price}}</div>
           </div>
           
         

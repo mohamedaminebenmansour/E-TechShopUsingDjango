@@ -1,73 +1,108 @@
-{% extends 'index.html' %}
-{% block content %}
-{% load static %}
+{% extends 'index.html' %} {% block content %} {% load static %} {% load
+socialaccount %}
 
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
+<!-- Add Bootstrap CSS -->
+<link
+  href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css"
+  rel="stylesheet"
+/>
+<script
+  src="https://kit.fontawesome.com/a076d05399.js"
+  crossorigin="anonymous"
+></script>
+
+<div
+  class="container d-flex justify-content-center align-items-center min-vh-100"
+>
   <div class="col-12 col-md-8 col-lg-6">
-    <form class="card p-5 border-0 shadow-lg rounded-4" method="post" enctype="multipart/form-data">
+    <form
+      class="card p-5 border-0 shadow-lg rounded-4"
+      method="post"
+      enctype="multipart/form-data"
+    >
       {% csrf_token %}
       <h2 class="text-center mb-4 fw-bold text-info">Login</h2>
-      <hr class="mb-4">
+      <hr class="mb-4" />
 
       {% if messages %}
-      <div class="alert alert-success alert-dismissible fade show rounded-3" role="alert">
-        {% for message in messages %}
-        {{ message }}
-        {% endfor %}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <div
+        class="alert alert-success alert-dismissible fade show rounded-3"
+        role="alert"
+      >
+        {% for message in messages %} {{ message }} {% endfor %}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
       </div>
       {% endif %}
 
       <div class="mb-4">
         <label for="email" class="form-label fw-semibold">Email</label>
-        <input 
-          type="email" 
-          id="email" 
-          name="email" 
-          class="form-control form-control-lg rounded-pill" 
-          placeholder="Enter your Email" 
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control form-control-lg rounded-pill"
+          placeholder="Enter your Email"
           required
-        >
+        />
       </div>
 
       <div class="mb-4">
         <label for="password" class="form-label fw-semibold">Password</label>
-        <input 
-          type="password" 
-          id="password" 
-          name="password" 
-          class="form-control form-control-lg rounded-pill" 
-          placeholder="Enter your Password" 
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control form-control-lg rounded-pill"
+          placeholder="Enter your Password"
           required
-        >
+        />
       </div>
 
       <div class="d-flex justify-content-between align-items-center mb-4">
-        <p class="mb-0">Don't have an account? 
+        <p class="mb-0">
+          Don't have an account?
           <a href="{% url 'register' %}" class="text-info">Register</a>
         </p>
-        <p class="mb-0"><strong>Forgot password?</strong> 
+        <p class="mb-0">
+          <strong>Forgot password?</strong>
           <a href="{% url 'forget_password' %}" class="text-info">Recover</a>
         </p>
       </div>
 
-      <input type="hidden" name="next" value="{{ request.GET.next }}">
+      <input type="hidden" name="next" value="{{ request.GET.next }}" />
 
-      <button 
-        type="submit" 
+      <button
+        type="submit"
         class="btn btn-info w-100 py-2 rounded-pill fw-semibold text-white"
       >
         Login
       </button>
-      
+
       <div class="text-center mt-3">
         <p class="mb-0">or login with</p>
-        <div class="d-flex justify-content-center">
-          <a href="#" class="btn btn-outline-primary me-2">
+        <div class="social-auth d-flex justify-content-center">
+          <a
+            href="{% url 'social:begin' 'facebook' %}"
+            class="btn btn-outline-primary me-2"
+          >
             <i class="fab fa-facebook-f"></i> Facebook
           </a>
-          <a href="#" class="btn btn-outline-danger me-2">
+          <a
+            href="{% url 'social:begin' 'google-oauth2' %}"
+            class="btn btn-outline-danger me-2"
+          >
             <i class="fab fa-google"></i> Google
+          </a>
+          <a
+            href="{% url 'social:begin' 'github' %}"
+            class="btn btn-outline-dark"
+          >
+            <i class="fa-brands fa-github"></i> GitHub
           </a>
         </div>
       </div>
@@ -75,5 +110,9 @@
   </div>
 </div>
 
+<!-- Add Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
 
 {% endblock %}

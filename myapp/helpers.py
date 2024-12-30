@@ -3,15 +3,16 @@ from django.conf import settings
 from django.core.mail import send_mail
 
 class Manager(BaseUserManager):
-    def create_user(self, email, password = None, **extra_fields):
+    def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError('The Email is required')
         first_name = extra_fields.get('first_name')
         last_name = extra_fields.get('last_name')
         email = self.normalize_email(email)
-        user = self.model(email = email, **extra_fields)
-        user.set_password(password)  # Corrected line
-        user.save(using = self._db)
+        user = self.model(email=email, **extra_fields)
+        print(user)
+        user.set_password(password)
+        user.save(using=self._db)
         return user
     
     def create_superuser(self, email, password = None, **extra_fields):

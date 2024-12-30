@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -126,7 +127,8 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'mohamedpoly9@gmail.com'
 EMAIL_HOST_PASSWORD = "qhng eqvq cchg vjcj"
-
+#cliendid:Iv23lit5zYAmN1TVjLC7
+#827fd46e6c30051b9ad4dfe9ff09d9b9e69a01e4
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 import os
@@ -145,4 +147,61 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.github.GithubOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# Facebook configuration
+# Facebook configuration
+SOCIAL_AUTH_FACEBOOK_KEY = '1116741127122011'
+SOCIAL_AUTH_FACEBOOK_SECRET = '3884a3832df4cf5572e3de3e14f7c37b'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'public_profile']  # Correct scope
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, email'  # Specify the fields you want to receive
+}
+
+
+# Google configuration
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '78998728786-406a55ft1fi5d0bkl3uf924f9oao371q.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'http://localhost:8000/social-auth/complete/google-oauth2/'
+
+#
+##
+##
+##
+##
+# Define where to redirect after successful login
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_URL = 'logout'
+LOGOUT_REDIRECT_URL = 'login'
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'myapp.pipeline.debug_pipeline',  # Add your custom debug step here
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'social_core.pipeline.debug.debug',
+)
+
+SOCIAL_AUTH_GITHUB_KEY = 'Iv23lit5zYAmN1TVjLC7'
+SOCIAL_AUTH_GITHUB_SECRET = '827fd46e6c30051b9ad4dfe9ff09d9b9e69a01e4'
+SOCIAL_AUTH_GITHUB_SCOPE = ['email']
+
+SOCIAL_AUTH_GITHUB_REDIRECT_URI = 'http://localhost:8000/social-auth/complete/github/'
+
+# Optional: Define the redirect URL after login
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
